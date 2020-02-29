@@ -1,0 +1,21 @@
+
+INSERT INTO `Personne` VALUES (1, 'chou.pi@gmail.com', 'Pichou', 'Chou', NULL,2010, NULL,NULL, 'Etudiant', 'Utilisateur');
+INSERT INTO `Personne` VALUES (2, 'scooby.do@gmail.com', 'Doo', 'Scooby', NULL,2005, NULL,NULL, 'Enseignant', 'Administrateur');
+INSERT INTO `Personne` VALUES (3, 'tamtam.zo@gmail.com', 'Zoom', 'Tamtam', NULL,2019, NULL,NULL, 'Etudiant', 'Utilisateur');
+
+INSERT INTO `Tuteur` VALUES (1, 'steven.du@gmail.com', 'Ducrot', 'Steven', '15');
+INSERT INTO `Tuteur` VALUES (2, 'sissifu@gmail.com', 'Fusceau', 'Sissi', '14');
+INSERT INTO `Tuteur` VALUES (3, 'fannymi@gmail.com', 'Miso', 'Fanny', '16');
+
+INSERT INTO `Entreprise` VALUES (1, 'Total', 'Lille', 'France', NULL,'www.rapport1.com');
+INSERT INTO `Entreprise` VALUES (2, 'EDF', 'Paris', 'France', NULL,'www.rapport2.com');
+INSERT INTO `Entreprise` VALUES (3, 'Engie', 'Marseille', 'France', NULL,'www.rapport3.com');
+
+INSERT INTO `Stage` VALUES (1, 'Simulation','2010','6','Professionnel','1',NULL,'1','1','15','15',NULL,'www.rapport1.com');
+INSERT INTO `Stage` VALUES (2, 'Modélisation','2005','5','Professionnel','2',NULL,'2','2','14','15',NULL,'www.rapport2.com');
+INSERT INTO `Stage` VALUES (3, 'tchatcha','2019','6','Recherche','3',NULL,'3','3','15','16',NULL,'www.rapport3.com');
+
+
+INSERT INTO `Rapport` VALUES (1,'Specific attention is devoted to each class of carbon nanomaterial, thereby allowing comparative analysis of the suitability of fullerenes, carbon nanotubes, and graphene for each application area. In this manner, this article will provide guidance to future application developers and also articulate the remaining research challenges confronting this field');
+INSERT INTO `Rapport` VALUES (2,'However, with recent advances in synthesis, sorting, and assembly techniques, carbon nanomaterials are experiencing renewed interest as the basis of numerous scalable technologies');
+INSERT INTO `Rapport` VALUES (3,'Here, we present an extensive review of carbon nanomaterials in electronic, optoelectronic, photovoltaic, and sensing devices with a particular focus on the latest examples based on the highest purity samples');

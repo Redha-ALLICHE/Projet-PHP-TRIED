@@ -1,6 +1,6 @@
 <html>
   <head>
-      <title>page1</title>
+      <title>Welcome to TRIED</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -61,23 +61,27 @@
     <div class="s010">
       <form id="form1" action="includes/search.inc.php" method="get" >
       <?php
-        if ($_GET["error"] === "EmptyFields"){
+        if ((isset($_GET["error"])) &&  $_GET["error"] === "EmptyFields"){
           echo('<div class="alert alert-danger" role="alert">
-                  Please fill the form!
+                  Mot clé non saisi !
                 </div>');
         }
-        elseif ($_GET["error"] === "sqlerror"){
+        elseif ((isset($_GET["error"])) && $_GET["error"] === "sqlerror"){
           echo('<div class="alert alert-danger" role="alert">
                   SQL error!
                 </div>');
         }
-        elseif ($_GET["error"] === "noresult"){
+
+        elseif ((isset($_GET["error"])) && $_GET["error"] === "InvalidText"){
+          echo('<div class="alert alert-danger" role="alert">
+                  Invalid input!
+                </div>
+                ');
+        }
+        elseif ((isset($_GET["error"])) && $_GET["error"] === "noresult"){
           echo('<div class="alert alert-danger" role="alert">
                   No results!
                 </div>
-                <script>
-                  document.getElementById("nb_result").innerText = "0";
-                </script>
                 ');
         }
 
@@ -110,8 +114,8 @@
 <!création des deux boutons rechercher er reset ainsi que le nbr de résultats>           
             <div class="row third">
               <div class="input-field">
-                <div class="result-count">
-                  <span id="nb_result" >0 </span>résultats</div>
+                <div id="result_count" class="result-count" >
+                  <span id="nb_result" hidden>0 </span>Results</div>
                 <div class="group-btn">
                   <button onclick="reset_all()" type="reset" class="btn-delete" name="reset">RESET</button>
                   <button type="submit" class="btn-search" name="search_submit">rechercher</button>
@@ -123,6 +127,22 @@
           </div>
         
       </form>
+      <?php
+            if ((isset($_GET["msg"])) && $_GET["msg"] === "success" && isset($_GET["nb_result"])){
+              echo('<script>
+                    document.getElementById("nb_result").hidden = false;
+                    document.getElementById("nb_result").innerText ='.$_GET["nb_result"].';
+                    </script>');
+            }
+            elseif ((isset($_GET["error"])) && $_GET["error"] === "noresult"){
+              echo('<script>
+                     document.getElementById("nb_result").hidden = false;
+                     document.getElementById("nb_result").innerText = "0";
+                     document.getElementById("searchInput").value = "'.$_GET["searchInput"].'";
+                    </script>
+                    ');
+            }
+     ?>
     </div>
     <script src="js/extention/choices.js"></script>
     <script>
@@ -145,7 +165,12 @@
           x.hidden = true;
       }}
       function reset_all(){
-        document.getElementById("form1").reset();
+        document.getElementById("searchInput").value = "";
+        document.getElementById("sujet").value = "";
+          document.getElementById("etudiant").value = "";
+          document.getElementById("date").value = "";
+          document.getElementById("entreprise").value = "";
+          document.getElementById("lieu").value = "";
         document.getElementById("advanced_search").hidden = true;
       }
 

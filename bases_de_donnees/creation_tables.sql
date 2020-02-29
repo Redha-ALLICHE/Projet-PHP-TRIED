@@ -27,7 +27,7 @@ CREATE TABLE `Personne` (
 
 -- --------------------------------------------------------
 --
--- Structure de la table `Identifiants`
+-- Structure de la table `Tuteur`
 --
 DROP TABLE IF EXISTS Tuteur CASCADE;
 CREATE TABLE `Tuteur` (
@@ -47,7 +47,7 @@ DROP TABLE IF EXISTS Entreprise CASCADE;
 CREATE TABLE `Entreprise` (
   `id_entreprise` int unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `nom_entreprise` VARCHAR(50) NOT NULL,
-  `ville` int NOT NULL,
+  `ville` VARCHAR(11) NOT NULL,
   `pays` VARCHAR(50) NOT NULL,
   `note_moyenne` float DEFAULT NULL,
   `lien_rapport` VARCHAR(50) NOT NULL
@@ -79,7 +79,7 @@ CREATE TABLE `Stage` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 -- --------------------------------------------------------
 --
--- Structure de la table `Identifiants`
+-- Structure de la table `Rapport`
 --
 DROP TABLE IF EXISTS Rapport CASCADE;
 CREATE TABLE `Rapport` (
@@ -98,6 +98,18 @@ CREATE TABLE `Identifiants` (
   `id_personne` int unsigned NOT NULL PRIMARY KEY,
   `password` CHAR(32) NOT NULL,
   CONSTRAINT `Mdp_to_Personne` FOREIGN KEY (`id_personne`) REFERENCES `Personne` (`id_personne`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `identifiants_temporaire`
+--
+
+DROP TABLE IF EXISTS `identifiants_temporaire`;
+CREATE TABLE IF NOT EXISTS `identifiants_temporaire` (
+  `id_personne` int UNSIGNED NOT NULL,
+  `password` char(32) NOT NULL,
+  PRIMARY KEY (`id_personne`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
@@ -123,6 +135,12 @@ CREATE TABLE `Stage_Temporaire` (
   `lien_rapport` VARCHAR(50) NOT NULL,
   `date_demande` date NOT NULL,
   `id_personne` int unsigned NOT NULL,
+  `nom_entreprise` VARCHAR(50) NOT NULL,
+  `ville` VARCHAR(50) NOT NULL,
+  `pays` VARCHAR(50) NOT NULL,
+  `nom_tuteur` char(32) NOT NULL,
+  `prénom_tuteur` char(32) NOT NULL,
+  `email_tuteur` char(32) NOT NULL,
   CONSTRAINT `Stage_to_Personne11` FOREIGN KEY (`id_stagiaire1`) REFERENCES `Personne` (`id_personne`),
   CONSTRAINT `Stage_to_Personne12` FOREIGN KEY (`id_stagiaire2`) REFERENCES `Personne` (`id_personne`),
   CONSTRAINT `Stage_to_Entreprise1` FOREIGN KEY (`id_entreprise`) REFERENCES `Entreprise` (`id_entreprise`),
@@ -132,19 +150,19 @@ CREATE TABLE `Stage_Temporaire` (
 
 
 -- --------------------------------------------------------
-
 --
--- Structure de la table `Entreprise_Temporaire`
+-- Structure de la table `Personne_temporaire`
 --
-DROP TABLE IF EXISTS Entreprise_Temporaire CASCADE;
-CREATE TABLE `Entreprise_Temporaire` (
-  `id_entreprise` int unsigned NOT NULL PRIMARY KEY AUTO_INCREMENT,
-  `nom_entreprise` VARCHAR(50) NOT NULL,
-  `ville` int NOT NULL,
-  `pays` VARCHAR(50) NOT NULL,
-  `id_personne` int unsigned NOT NULL,
-  `note_moyenne` float DEFAULT NULL,
-  `lien_rapport` VARCHAR(50) NOT NULL,
-  `date_demande` date NOT NULL,
-  CONSTRAINT `Entreprise_to_personne1` FOREIGN KEY (`id_personne`) REFERENCES `Personne` (`id_personne`)
+DROP TABLE IF EXISTS Personne_temporaire CASCADE;
+CREATE TABLE `Personne_temporaire` (
+  `id_personne` int unsigned PRIMARY KEY NOT NULL AUTO_INCREMENT,
+  `email` VARCHAR(50) NOT NULL,
+  `nom` VARCHAR(50) NOT NULL,
+  `prenom` VARCHAR(50) NOT NULL,
+  `photo` VARCHAR(50) DEFAULT NULL,
+  `promo` year NOT NULL CHECK (promo>'1995'),
+  `num_tel` VARCHAR(15) DEFAULT NULL,
+  `page_web` VARCHAR(50) DEFAULT NULL,
+  `fonction` ENUM('Enseignant', 'Etudiant'),
+  `statut` ENUM('Administrateur', 'Utilisateur')
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
